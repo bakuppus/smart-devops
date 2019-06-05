@@ -1,0 +1,6 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-f', '.docker/sidecar/Dockerfile', '-t', 'script-runner', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/modern-cubist-206411/oa-app', '.']
+images: ['gcr.io/modern-cubist-206411/oa-app']

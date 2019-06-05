@@ -1,0 +1,33 @@
+diff --git a/app/moodle/lib/coursecatlib.php b/app/moodle/lib/coursecatlib.php
+index 6e6d025..d89f8ad 100755
+--- a/app/moodle/lib/coursecatlib.php
++++ b/app/moodle/lib/coursecatlib.php
+@@ -929,7 +929,7 @@ class coursecat implements renderable, cacheable_object, IteratorAggregate {
+      * @return array array of stdClass objects
+      */
+     protected static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
+-        global $DB;
++        global $DB, $USER;
+         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
+         $fields = array('c.id', 'c.category', 'c.sortorder',
+                         'c.shortname', 'c.fullname', 'c.idnumber',
+@@ -944,7 +944,18 @@ class coursecat implements renderable, cacheable_object, IteratorAggregate {
+         // IOMAD - Remove courses which don't belong to your company
+         // and add in shared courses.
+         // If unit testing we generally don't know about companies
+-        if (!is_siteadmin() && !PHPUNIT_TEST) {
++
++        $is_sitemanager = false;
++        $systemcontext = context_system::instance();
++        $roles = get_user_roles($systemcontext, $USER->id);
++        foreach($roles as $role) {
++          if ($role->shortname === 'manager') {
++            $is_sitemanager = true;
++            break;
++          }
++        }
++
++        if (!is_siteadmin() && !PHPUNIT_TEST && !$is_sitemanager) {
+             if (!isloggedin()) {
+                 $whereclause .= " AND c.id NOT IN (SELECT courseid FROM {company_course})";
+             } else {
