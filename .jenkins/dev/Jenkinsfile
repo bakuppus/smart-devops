@@ -54,8 +54,7 @@ volumes: [
             stage('Cluster Switch - GKE') {
                     
                 container('gcloud') {
-                sh "gcloud container clusters get-credentials c-qq9nj --zone us-central1-f --project celtic-acumen-242904
-"
+                sh "gcloud container clusters get-credentials c-qq9nj --zone us-central1-f --project celtic-acumen-242904"
                 }
                 
             }  
