@@ -38,7 +38,7 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]
 ) {
-    node('saas-dev1-cd') {
+    node('c-qq9nj') {
         try {         
             
             def commitId
@@ -54,7 +54,8 @@ volumes: [
             stage('Cluster Switch - GKE') {
                     
                 container('gcloud') {
-                sh "gcloud container clusters get-credentials saas-dev1 --zone europe-west2-c --project modern-cubist-206411"
+                sh "gcloud container clusters get-credentials c-qq9nj --zone us-central1-f --project celtic-acumen-242904
+"
                 }
                 
             }  
