@@ -1,11 +1,11 @@
-def project = 'modern-cubist-206411'
+def project = 'celtic-acumen-242904'
 def  appName = 'oa-app'
 def  feSvcName = "${appName}-frontend"
 def  imageTag = "gcr.io/${project}/${appName}:latest"
 
 
 podTemplate(
-    label: 'saas-dev1-cd', 
+    label: 'c-qq9nj-cd', 
     inheritFrom: 'default',
     containers: [
         containerTemplate(
@@ -38,7 +38,7 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]
 ) {
-    node('c-qq9nj') {
+    node('c-qq9nj-cd') {
         try {         
             
             def commitId
